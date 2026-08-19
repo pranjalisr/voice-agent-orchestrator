@@ -16,7 +16,7 @@ Say the agent is booking a Monday meeting and you cut in with *"make it Tuesday.
 - the request **completed** → a real Monday event exists → delete it, then book Tuesday
 - the request was **in flight** → you genuinely don't know → treat it as *maybe live* and reconcile it
 
-A naive agent ignores this and just books Tuesday — leaving a phantom Monday event on your calendar. This project treats that third case as a first-class citizen.
+A naive agent ignores this and just books Tuesday; leaving a phantom Monday event on your calendar. This project treats that third case as a first-class citizen.
 
 ---
 
@@ -200,15 +200,15 @@ python test_ws.py             # end-to-end over a live WebSocket (start the serv
 
 ## Tech stack
 
-· Python 
-· FastAPI 
-· asyncio 
-· WebSockets 
-· Pydantic 
-· httpx 
-· vanilla JS/CSS frontend 
-· n8n (pluggable backend) 
-· Anthropic / OpenAI / DeepSeek (pluggable planner)
+- Python 
+- FastAPI 
+- asyncio 
+- WebSockets 
+- Pydantic 
+- httpx 
+- vanilla JS/CSS frontend 
+- n8n (pluggable backend) 
+- Anthropic / OpenAI / DeepSeek (pluggable planner)
 
 ---
 
