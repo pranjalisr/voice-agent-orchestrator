@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vox Orchestrator — barge-in voice agent</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <div class="grain" aria-hidden="true"></div>
+
+  <header class="topbar">
+    <div class="brand">
+      <span class="brand-mark" aria-hidden="true"></span>
+      <span class="brand-name">VOX<span class="dim">/</span>ORCHESTRATOR</span>
+    </div>
+    <div class="status-cluster">
+      <span class="chip" id="conn-chip"><i class="dot"></i><span id="conn-text">connecting</span></span>
+      <span class="chip mono" id="engine-chip">stt: <span id="engine-text">checking</span></span>
+    </div>
+  </header>
+
+  <main class="stage">
+    <!-- LEFT: the live state readout + input -->
+    <section class="panel readout" aria-label="Agent state">
+      <div class="readout-label mono">AGENT STATE</div>
+
+      <div class="signal" id="signal">
+        <canvas id="scope" width="520" height="180" aria-hidden="true"></canvas>
+        <div class="state-word" id="state-word">idle</div>
+        <div class="state-sub mono" id="state-sub">waiting for you</div>
+      </div>
+
+      <div class="say-line" id="say-line" aria-live="polite"></div>
+
+      <div class="controls">
+        <button id="mic-btn" class="mic" aria-pressed="false">
+          <span class="mic-ico" aria-hidden="true"></span>
+          <span class="mic-label">Hold to talk</span>
+        </button>
+        <p class="hint mono" id="mic-hint">press &amp; hold, or use the console below</p>
+      </div>
+
+      <div class="console">
+        <div class="console-row">
+          <input id="text-input" type="text" autocomplete="off"
+                 placeholder="type an instruction and press Send" />
+          <button id="send-btn" class="ghost">Send</button>
+        </div>
+        <div class="quick" id="quick">
+          <span class="quick-label mono">try:</span>
+          <button class="quick-btn" data-fill="Schedule a sync for Monday at 10am">Schedule Monday</button>
+          <button class="quick-btn barge" data-barge="wait no, change that to Tuesday">↯ “change to Tuesday”</button>
+          <button class="quick-btn barge" data-barge="actually cancel that">↯ “cancel that”</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- RIGHT: the live plan + event log -->
+    <section class="panel side">
+      <div class="side-block plan-block">
+        <div class="block-head">
+          <span class="block-title mono">CURRENT PLAN</span>
+          <span class="goal" id="goal">—</span>
+        </div>
+        <ol class="plan" id="plan"></ol>
+      </div>
+
+      <div class="side-block log-block">
+        <div class="block-head">
+          <span class="block-title mono">EVENT LOG</span>
+          <button class="ghost small" id="clear-log">clear</button>
+        </div>
+        <div class="log mono" id="log"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer mono">
+    <span>backend: <b id="backend-mode">n8n webhooks</b></span>
+    <span class="sep">·</span>
+    <span>barge in any time — audio stops instantly, the agent re-plans from where it was</span>
+  </footer>
+
+  <script src="/app.js"></script>
+</body>
+</html>
