@@ -115,7 +115,7 @@ A dark "signal monitor" UI, no build step — plain `index.html` / `styles.css` 
 
 ## Quickstart
 
-Requires **Python 3.11+**. Runs fully offline in mock mode — no API keys, no n8n.
+Requires **Python 3.11+**. Runs fully offline in mock mode; no API keys, no n8n.
 
 ```bash
 # 1. install
@@ -127,7 +127,7 @@ pip install -r requirements.txt
 python -m uvicorn main:app --port 8000
 ```
 
-Open **http://localhost:8000**. If port 8000 is taken, use `--port 8010` and open that instead. When it starts cleanly the terminal prints `Uvicorn running on http://0.0.0.0:8000`.
+Open **http://localhost:8000**. When it starts cleanly the terminal prints `Uvicorn running on http://0.0.0.0:8000`.
 
 ### Try the barge-in (the part worth seeing)
 
@@ -166,9 +166,9 @@ The layers are independent: real LLM + mock tools, or mock planner + real n8n, b
 
 ## Connecting n8n
 
-You **don't** need n8n to demo the barge-in — mock tools simulate latency and behave identically. Wire it up only when you want tools to actually touch a real calendar / inbox.
+You **don't** need n8n to demo the barge-in mock tools simulate latency and behave identically. Wire it up only when you want tools to actually touch a real calendar / inbox.
 
-Each tool maps to one n8n **Webhook** workflow. The executor sends a JSON `POST` with an **`Idempotency-Key`** header — honor it. When a call is cancelled mid-flight and marked `UNCERTAIN`, the re-planner may fire the same call again or its compensation; idempotency on that key is what keeps interruption recovery from double-booking.
+Each tool maps to one n8n **Webhook** workflow. The executor sends a JSON `POST` with an **`Idempotency-Key`** header to honor it. When a call is cancelled mid-flight and marked `UNCERTAIN`, the re-planner may fire the same call again or its compensation; idempotency on that key is what keeps interruption recovery from double-booking.
 
 Full setup, per-workflow request shapes, and an idempotency pattern are in [`n8n/example-workflows.md`](n8n/example-workflows.md).
 
@@ -191,7 +191,7 @@ python test_ws.py             # end-to-end over a live WebSocket (start the serv
 
 ## Design notes & limitations
 
-- **Hold-to-talk, by design.** In a browser tab the agent's speech and your mic share one acoustic space with no echo cancellation, so an always-listening mic would hear the agent and interrupt itself. Holding to speak makes barge-in intent explicit and sidesteps the echo problem — and pressing the mic *while the agent is talking* **is** the barge-in.
+- **Hold-to-talk, by design.** In a browser tab the agent's speech and your mic share one acoustic space with no echo cancellation, so an always-listening mic would hear the agent and interrupt itself. Holding to speak makes barge-in intent explicit and sidesteps the echo problem and pressing the mic *while the agent is talking* **is** the barge-in.
 - **Instant audio stop.** On speech-start, local TTS is killed immediately (no server round-trip) so the interruption *feels* instant; the actual re-plan is sent once the final transcript is ready.
 - **Browser STT varies.** Web Speech recognition isn't everywhere (e.g. Firefox). The text console is a first-class fallback that drives the exact same barge-in path.
 - **Scope.** The planner ships with a small demo tool catalogue and a rule-based mock planner so the whole system runs offline; swapping in a real LLM provider is a config change, not a code change.
@@ -200,7 +200,15 @@ python test_ws.py             # end-to-end over a live WebSocket (start the serv
 
 ## Tech stack
 
-Python · FastAPI · asyncio · WebSockets · Pydantic · httpx · vanilla JS/CSS frontend · n8n (pluggable backend) · Anthropic / OpenAI / DeepSeek (pluggable planner)
+· Python 
+· FastAPI 
+· asyncio 
+· WebSockets 
+· Pydantic 
+· httpx 
+· vanilla JS/CSS frontend 
+· n8n (pluggable backend) 
+· Anthropic / OpenAI / DeepSeek (pluggable planner)
 
 ---
 
