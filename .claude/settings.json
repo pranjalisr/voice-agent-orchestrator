@@ -1,9 +1,0 @@
-{
-  "permissions": {
-    "allow": [
-      "Bash(python3 -)",
-      "Bash(python3 /private/tmp/claude-501/-Users-pranjalisrivastava-Downloads-voice-agent-orchestrator/83273f15-e99b-4dc9-aaf0-73e1fbdaadaa/scratchpad/order_check.py)",
-      "Bash(python3 -c \"import ast; ast.parse\\(open\\('planner.py'\\).read\\(\\)\\)\")"
-    ]
-  }
-}
