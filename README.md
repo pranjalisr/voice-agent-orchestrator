@@ -6,21 +6,6 @@ Most voice agents make you wait for them to finish before you can correct them. 
 
 ---
 
-## Demo
-
-<!--
-  Add a screenshot or GIF here. The interrupt moment makes the best still —
-  the event log showing "uncertain → delete → rebook" is the whole pitch.
-
-  1. Drop your image into a docs/ folder, e.g.  docs/demo.png
-  2. Replace the line below with:  ![VOX / ORCHESTRATOR — barge-in demo](docs/demo.png)
-  A short GIF of a live mid-turn interrupt is even better than a still.
--->
-
-> _📷 Screenshot / GIF goes here — see the comment above._
-
----
-
 ## The problem this solves
 
 Barging in mid-*sentence* is easy: you just stop the audio. Barging in mid-*action* is the hard part, because a tool call may have already changed the world by the time the user interrupts.
